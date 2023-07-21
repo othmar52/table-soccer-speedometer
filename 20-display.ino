@@ -55,6 +55,21 @@ void displaySpeedAndHeight(float ballSpeed, float flightHeight) {
   lcd.print(" mm");
   displaySensorValues();
 }
+void displaySpeedAndHeightTimes(float ballSpeed, float flightHeight, float t1, float t2, float t3) {
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(t1, 0);
+  lcd.print("|");
+  lcd.print(t2, 0);
+  lcd.print("|");
+  lcd.print(t3, 0);
+  
+  lcd.setCursor(0,1);
+  lcd.print(ballSpeed, 1);
+  lcd.print(" v|h ");
+  lcd.print(flightHeight, 1);
+  // displaySensorValues();
+}
 
 void displaySensorValues() {
   uint8_t upperCharIndex = 6; // empty

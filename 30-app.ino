@@ -1,14 +1,7 @@
 
 
-void calculateBallMetrics() {
-  for (uint8_t i = 0; i < NUM_PHOTODIODES; i++) {
-    if (ledCurrentState[i] == LOW) {
-      // the ball is still within at least one light barrier
-      return;
-    }
-  }
 
-
+void calculateBallMetrics(uint8_t goal) {
   Serial.println("######### calculate speed and height #############");
 
   float h = 0.0;  // flight height of ball
@@ -18,45 +11,79 @@ void calculateBallMetrics() {
 
   float ratio = 0.0; // ratio between t-lower and t-upper
 
-  for (uint8_t i = 0; i < NUM_PHOTODIODES-1; i++) {
-    if (ledDuration[i] != 0 && ledDuration[i+1] != 0) {
-      ratio = float(ledDuration[i])/float(ledDuration[i+1]);
-      h = calculateFlightHeight(ratio, heights[i], heights[i+1]);
-      distanceToBallCenter = h + r - (heights[i] + ((heights[i+1]-heights[i])/2));
+  // Permutation of height calculation
+  for (uint8_t i = 0; i < LEDS_PER_GOAL; i++) {
+    for (uint8_t j = 1; j < LEDS_PER_GOAL; j++) {
+      if (i >= j) {
+        // we have always lower divided by upper
+        continue;
+      }
+      if (ledDuration[goal][i] == 0 || ledDuration[goal][j] == 0) {
+        // one of the 2 light barriers has not been interrupted
+        // so its not possible to calculate the fleight height with this light barrier combo
+        continue;
+      }
+
+      //Serial.print(" dur i: ");
+      //Serial.print(ledDuration[goal][i]);
+      //Serial.print(" dur j: ");
+      //Serial.println(ledDuration[goal][j]);
+      
+      ratio = float(ledDuration[goal][i]) / float(ledDuration[goal][j]);
+      h = calculateFlightHeight(ratio, heights[goal][i], heights[goal][j]);
+      distanceToBallCenter = h + r - (heights[goal][i] + ((heights[goal][j] - heights[goal][i]) / 2));
       Serial.print("h = ");
       Serial.print(h);
-      Serial.print(" mm idx:");
+      Serial.print(" mm Goal: ");
+      Serial.print(goal + 1); // Tor-Nummer (beginnend bei 1) anzeigen
+      Serial.print(" idx1: ");
       Serial.print(i);
+      Serial.print(" idx2: ");
+      Serial.print(j);
       Serial.print(" to center: ");
       Serial.println(abs(distanceToBallCenter), 1);
     }
   }
-  if (ratio == 0.0) {
-    return;
+
+  // calculate speed based on flight height
+  
+  if (h != 0.0) {
+    v = calculateSpeed(goal, h);
+    //displaySpeedAndHeight(v, h);
+    
   }
-  v = calculateSpeed(h);
-  displaySpeedAndHeight(v, h);
-  for (uint8_t i = 0; i < NUM_PHOTODIODES; i++) {
-    ledDuration[i] = 0.0;
+  
+  displaySpeedAndHeightTimes(v, h, ledDuration[goal][0], ledDuration[goal][1], ledDuration[goal][2]);
+
+  // reset measured times as we already have processed it
+  for (uint8_t i = 0; i < LEDS_PER_GOAL; i++) {
+    if (ledCurrentState[goal][i] == LOW) {
+      ledDuration[goal][i] = 0;
+    }
   }
+  
 }
 
-
-// berechnet die Entfernung der Schnittpunkte einer horizontalen geraden linie in der höhe y mit einem kreis mit durchmesser d
+// Calculates the distance between the intersection points of a horizontal straight line at height y and a circle with diameter d.
 float calculateDistanceInCircle(float y) {
 
- // Berechnung der Schnittpunkte
+ // Calculation of intersection points
   float term = sqrt(sq(r) - sq(y - r));
   float x1x = r - term;
   float x2x = r + term;
 
-  // Berechnung der Entfernung der Schnittpunkte
+  // Calculation of distance between the 2 intersection points
   return abs(x2x - x1x);
 }
 
 
 
-
+/**
+ * @param float ratio: ratio between time-lower and time-upper
+ * @param float lower: mounting height of lower light barrier [mm]
+ * @param float upper: mounting height of upper light barrier [mm]
+ * @return float height: the calculated fleight height [mm]
+ */
 float calculateFlightHeight(float ratio, float lower, float upper) {
   /*
   Serial.print(ratio, 5);
@@ -83,25 +110,25 @@ float calculateFlightHeight(float ratio, float lower, float upper) {
 
 
 
-float calculateSpeed(float height) {
+float calculateSpeed(uint8_t goal, float height) {
 
   float distanceToBallCenter = 0.0;
   float dist = 0.0;
 
   float v = 0.0;
+  for (uint8_t i = 0; i < LEDS_PER_GOAL; i++) {
 
-  for (uint8_t i = 0; i < NUM_PHOTODIODES; i++) {
-    if (ledDuration[i] == 0) {
+    if (ledDuration[goal][i] == 0) {
       continue;
     }
-    distanceToBallCenter = height + r - heights[i];
-    dist = calculateDistanceInCircle(heights[i]-height);
+    distanceToBallCenter = height + r - heights[goal][i];
+    dist = calculateDistanceInCircle(heights[goal][i]-height);
     // convert microseconds/mm to km/h
-    v = dist / float(ledDuration[i]) * 3600;
+    v = dist / float(ledDuration[goal][i]) * 3600;
     
     //Serial.print(dist);
-    //Serial.print(" dist-ledDuration[i] ");
-    //Serial.println(ledDuration[i]);
+    //Serial.print(" dist-ledDuration[goal][i] ");
+    //Serial.println(ledDuration[goal][i]);
     Serial.print("v = ");
     Serial.print(v, 2);
     Serial.print(" km/h idx:");
