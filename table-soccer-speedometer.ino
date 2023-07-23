@@ -8,16 +8,21 @@
 
 // goal size ~ 200mm x 60mm
 
+
+
+
 const float d = 33.7; // ball diameter
 const float r = d/2.0; // ball radius
 
 void setup() {
-  while (! Serial); 
+  //while (! Serial); 
   Serial.begin(115200);
+  Serial.println("hello");
   setupPhotoDiodes();
   setupDisplay();
 }
 
 void loop() {
   loopReadPhotoDiodes();
+  loopDisplayTemp();
 }

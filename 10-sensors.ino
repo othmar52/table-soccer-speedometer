@@ -14,8 +14,8 @@ const float heights[NUM_GOALS][LEDS_PER_GOAL] = {
 
 // Pin numbers of photo diodes for each goal
 const uint8_t ledPins[NUM_GOALS][LEDS_PER_GOAL] = {
-  {3, 4, 5}, // LED pins for goal 1
-  {6, 7, 8}  // LED pins for goal 2
+  {25, 26, 27}, // LED pins for goal 1
+  {12, 14, 33}  // LED pins for goal 2
 };
 
 bool ledCurrentState[NUM_GOALS][LEDS_PER_GOAL];
