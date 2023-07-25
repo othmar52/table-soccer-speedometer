@@ -23,6 +23,6 @@ void setup() {
 }
 
 void loop() {
-  loopReadPhotoDiodes();
+  //loopReadPhotoDiodes();
   loopDisplayTemp();
 }

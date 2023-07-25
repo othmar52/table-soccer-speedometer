@@ -1,3 +1,6 @@
+
+// @see https://microcontrollerslab.com/led-dot-matrix-display-esp32-max7219/
+
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
 #include <SPI.h>
@@ -15,7 +18,9 @@
 #define PRINTX(x)
 
 MD_Parola Display = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
+MD_MAX72XX *pM;
 
+long randomNumber;
 
 void setupDisplay() {
  
@@ -60,12 +65,22 @@ void loopDisplayTemp() {
   }
   lastFoo = millis();
   if (aaa) {
-    Display.displayZoneText(0, "28.5", PA_CENTER, 0, 0, PA_NO_EFFECT);
-    Display.displayZoneText(1, "4.3", PA_CENTER, 0, 0, PA_NO_EFFECT);
+    Display.displayZoneText(0, "> 28.5", PA_CENTER, 0, 0, PA_NO_EFFECT);
+    Display.displayZoneText(1, "< 4.3", PA_CENTER, 0, 0, PA_NO_EFFECT);
   } else {
     Display.displayZoneText(0, "km/h", PA_CENTER, 0, 0, PA_NO_EFFECT);
     Display.displayZoneText(1, "km/h", PA_CENTER, 0, 0, PA_NO_EFFECT);
   }
   aaa = !aaa;
   Display.displayAnimate();
+  pM = Display.getGraphicObject();
+  
+  randomNumber = random(1000);
+  pM->setPoint(0,0, (randomNumber < 500) ? true : false);
+  randomNumber = random(1000);
+  pM->setPoint(7,0,(randomNumber < 500) ? true : false);
+  randomNumber = random(1000);
+  pM->setPoint(1,32,(randomNumber < 500) ? true : false);
+  randomNumber = random(1000);
+  pM->setPoint(5,32,(randomNumber < 500) ? true : false);
 }

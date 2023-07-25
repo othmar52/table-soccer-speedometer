@@ -35,7 +35,7 @@ void calculateBallMetrics(uint8_t goal) {
       Serial.print("h = ");
       Serial.print(h);
       Serial.print(" mm Goal: ");
-      Serial.print(goal + 1); // Tor-Nummer (beginnend bei 1) anzeigen
+      Serial.print(goal + 1);
       Serial.print(" idx1: ");
       Serial.print(i);
       Serial.print(" idx2: ");
