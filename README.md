@@ -1,4 +1,21 @@
 # Table Soccer Speedometer
+```
+        ████████╗ █████╗ ██████╗ ██╗     ███████╗    ███████╗ ██████╗  ██████╗ ██████╗███████╗██████╗ 
+        ╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝██╔════╝██╔══██╗
+           ██║   ███████║██████╔╝██║     █████╗      ███████╗██║   ██║██║     ██║     █████╗  ██████╔╝
+           ██║   ██╔══██║██╔══██╗██║     ██╔══╝      ╚════██║██║   ██║██║     ██║     ██╔══╝  ██╔══██╗
+           ██║   ██║  ██║██████╔╝███████╗███████╗    ███████║╚██████╔╝╚██████╗╚██████╗███████╗██║  ██║
+           ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝╚══════╝╚═╝  ╚═╝
+                                                                                                      
+        ███████╗██████╗ ███████╗███████╗██████╗  ██████╗ ███╗   ███╗███████╗████████╗███████╗██████╗  
+        ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██╔═══██╗████╗ ████║██╔════╝╚══██╔══╝██╔════╝██╔══██╗ 
+        ███████╗██████╔╝█████╗  █████╗  ██║  ██║██║   ██║██╔████╔██║█████╗     ██║   █████╗  ██████╔╝ 
+        ╚════██║██╔═══╝ ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██║╚██╔╝██║██╔══╝     ██║   ██╔══╝  ██╔══██╗ 
+        ███████║██║     ███████╗███████╗██████╔╝╚██████╔╝██║ ╚═╝ ██║███████╗   ██║   ███████╗██║  ██║ 
+        ╚══════╝╚═╝     ╚══════╝╚══════╝╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ 
+```
+
+
 
 This Arduino-based project measures and displays the speed of a ball on a table soccer game. By using light barriers, it calculates the flight height of the ball and then determines its speed based on that information.
 
@@ -27,12 +44,67 @@ To build and run this project, follow these steps:
 4. Set up the light barriers and ensure they are properly aligned.
 5. Power on the system and observe the speed and flight height measurements on the LCD screen.
 
+## Libraries used
+https://github.com/MajicDesigns/MD_Parola  
+https://github.com/MajicDesigns/MD_MAX72XX  
+
 ## Components Used
 
-- Arduino board (e.g., Arduino Uno, ESP32)
-- Light barriers (e.g., SFH 203)
-- LCD screen (compatible with your Arduino board)
+- Arduino board ESP32
+- Light barriers (e.g., SFH 309)
+- Matrix display MAX7219
 - Jumper wires
+
+## wiring
+### ESP32-S Dev Kit C
+https://www.azdelivery.de/products/esp32-dev-kitc-v2-ai-thinker-soldered  
+```
+                                  ESP32
+                         ┌────────────────────┐
+                         │◎ 3V3          GND ◎│
+                         │◎ EN           G23 ●│────> display MAX7219 MOSI [label:DIN]
+       sensor input <────│● SVP/36       G22 ●│────> sensor input
+       sensor input <────│● SVN/39       TXD ◎│
+       sensor input <────│● G34          RXD ◎│
+       sensor input <────│● G35          G21 ●│────> sensor input
+       sensor input <────│● G32          GND ◎│
+       sensor input <────│● G33          G19 ●│────> sensor input
+       sensor input <────│● G25          G18 ●│────> display MAX7219 SCK [label:CLK]
+       sensor input <────│● G26          G5  ●│────> display MAX7219 CS [label:CS]
+       sensor input <────│● G27          G17 ●│────> sensor input
+       sensor input <────│● G14          G16 ●│────> button input
+       sensor input <────│● G12          G4  ●│────> button input
+                         │◎ GND          G0  ◎│
+       sensor input <────│● G13          G2  ●│────> button input
+                         │◎ SD2          G15 ●│────> button input
+                         │◎ SD3          SD1 ◎│
+                         │◎ CMD          SD0 ◎│
+                         │◎ 5V           CLK ◎│
+                         └────────────────────┘
+
+```
+### Photo transistors SFH 309
+https://www.conrad.at/de/p/osram-sfh-309-fototransistor-3-mm-1080-nm-12-sfh-309-153870.html
+```
+                                     SHORT       LONG
+                                      LEG         LEG
+                                           ◎  ◎
+                ┌───────────┐            ◎      ◎
+     3V3 ●──────┤    670K   ├─────┬─────◎ SFH309 ◎────────● GND
+                └───────────┘     │      ◎      ◎
+                                  │        ◎  ◎
+                                  ●
+                              to ESP32
+                            digital pin
+```
+
+### circuit schematics
+
+
+
+## Troubleshooting
+https://aur.archlinux.org/ch34x-dkms-git.git  
+
 
 ## Contributing
 

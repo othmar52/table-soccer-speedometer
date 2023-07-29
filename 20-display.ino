@@ -5,13 +5,13 @@
 #include <MD_MAX72xx.h>
 #include <SPI.h>
 
-// Uncomment according to your hardware type
 #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
-//#define HARDWARE_TYPE MD_MAX72XX::GENERIC_HW
 
 // Defining size, and output pins
 #define MAX_DEVICES 8
-#define CS_PIN 5
+#define CLK_PIN   18  // or SCK
+#define DATA_PIN  23  // or MOSI
+#define CS_PIN    5  // or SS
 
 #define PRINT(s, x)
 #define PRINTS(x)
@@ -23,38 +23,27 @@ MD_MAX72XX *pM;
 long randomNumber;
 
 void setupDisplay() {
- 
+
   delay(2000);
+  // define a zone for each goal
   Display.begin(2);
   Display.setZone(0, 0, 3);
   Display.setZone(1, 4, 7);
+
   Display.setIntensity(0);
   Display.displayClear();
   uint8_t start, end;
-  //Display.getZone(0, start, end);
-  //Display.setTextAlignment(PA_CENTER);
-  //Display.print("13.8");
-  //PRINT("\nZone ", 0);
-
   Display.displayZoneText(0, "22.1", PA_CENTER, 25, 5000, PA_NO_EFFECT, PA_NO_EFFECT);
   Display.displayZoneText(1, "40.3", PA_CENTER, 25, 5000, PA_PRINT, PA_PRINT);
-  
   Display.displayAnimate();
-  //Display.getZone(1, start, end);
-  //Display.setTextAlignment(PA_CENTER);
-  // Display.print("22.1");
-  //PRINT("\nZone ", 1);
 }
 
 void displaySpeedAndHeight(float ballSpeed, float flightHeight) {
-
 }
 void displaySpeedAndHeightTimes(float ballSpeed, float flightHeight, float t1, float t2, float t3) {
-
 }
 
 void displaySensorValues() {
- 
 }
 
 unsigned long lastFoo = 0;
@@ -74,13 +63,24 @@ void loopDisplayTemp() {
   aaa = !aaa;
   Display.displayAnimate();
   pM = Display.getGraphicObject();
-  
+
   randomNumber = random(1000);
-  pM->setPoint(0,0, (randomNumber < 500) ? true : false);
+  pM->setPoint(0, 0, (randomNumber < 500) ? true : false);
   randomNumber = random(1000);
-  pM->setPoint(7,0,(randomNumber < 500) ? true : false);
+  pM->setPoint(7, 0, (randomNumber < 500) ? true : false);
   randomNumber = random(1000);
-  pM->setPoint(1,32,(randomNumber < 500) ? true : false);
+  pM->setPoint(1, 32, (randomNumber < 500) ? true : false);
   randomNumber = random(1000);
-  pM->setPoint(5,32,(randomNumber < 500) ? true : false);
+  pM->setPoint(5, 32, (randomNumber < 500) ? true : false);
 }
+
+#ifdef CALIBRATION
+void displaySensorState(uint8_t goal, uint8_t index, bool state) {
+  pM = Display.getGraphicObject();
+  pM->setPoint(
+    index,
+    (goal == 0) ? 0 : 32,
+    state
+  );
+}
+#endif
