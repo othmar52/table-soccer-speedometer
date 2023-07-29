@@ -1,23 +1,23 @@
 # Table Soccer Speedometer
 ```
-        ████████╗ █████╗ ██████╗ ██╗     ███████╗    ███████╗ ██████╗  ██████╗ ██████╗███████╗██████╗ 
-        ╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝██╔════╝██╔══██╗
-           ██║   ███████║██████╔╝██║     █████╗      ███████╗██║   ██║██║     ██║     █████╗  ██████╔╝
-           ██║   ██╔══██║██╔══██╗██║     ██╔══╝      ╚════██║██║   ██║██║     ██║     ██╔══╝  ██╔══██╗
-           ██║   ██║  ██║██████╔╝███████╗███████╗    ███████║╚██████╔╝╚██████╗╚██████╗███████╗██║  ██║
-           ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝╚══════╝╚═╝  ╚═╝
-                                                                                                      
-        ███████╗██████╗ ███████╗███████╗██████╗  ██████╗ ███╗   ███╗███████╗████████╗███████╗██████╗  
-        ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██╔═══██╗████╗ ████║██╔════╝╚══██╔══╝██╔════╝██╔══██╗ 
-        ███████╗██████╔╝█████╗  █████╗  ██║  ██║██║   ██║██╔████╔██║█████╗     ██║   █████╗  ██████╔╝ 
-        ╚════██║██╔═══╝ ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██║╚██╔╝██║██╔══╝     ██║   ██╔══╝  ██╔══██╗ 
-        ███████║██║     ███████╗███████╗██████╔╝╚██████╔╝██║ ╚═╝ ██║███████╗   ██║   ███████╗██║  ██║ 
-        ╚══════╝╚═╝     ╚══════╝╚══════╝╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ 
+  ████████╗ █████╗ ██████╗ ██╗     ███████╗    ███████╗ ██████╗  ██████╗ ██████╗███████╗██████╗ 
+  ╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝██╔════╝██╔══██╗
+     ██║   ███████║██████╔╝██║     █████╗      ███████╗██║   ██║██║     ██║     █████╗  ██████╔╝
+     ██║   ██╔══██║██╔══██╗██║     ██╔══╝      ╚════██║██║   ██║██║     ██║     ██╔══╝  ██╔══██╗
+     ██║   ██║  ██║██████╔╝███████╗███████╗    ███████║╚██████╔╝╚██████╗╚██████╗███████╗██║  ██║
+     ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝    ╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝╚══════╝╚═╝  ╚═╝
+
+   ███████╗██████╗ ███████╗███████╗██████╗  ██████╗ ███╗   ███╗███████╗████████╗███████╗██████╗  
+   ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██╔═══██╗████╗ ████║██╔════╝╚══██╔══╝██╔════╝██╔══██╗ 
+   ███████╗██████╔╝█████╗  █████╗  ██║  ██║██║   ██║██╔████╔██║█████╗     ██║   █████╗  ██████╔╝ 
+   ╚════██║██╔═══╝ ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██║╚██╔╝██║██╔══╝     ██║   ██╔══╝  ██╔══██╗ 
+   ███████║██║     ███████╗███████╗██████╔╝╚██████╔╝██║ ╚═╝ ██║███████╗   ██║   ███████╗██║  ██║ 
+   ╚══════╝╚═╝     ╚══════╝╚══════╝╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ 
 ```
 
 
 
-This Arduino-based project measures and displays the speed of a ball on a table soccer game. By using light barriers, it calculates the flight height of the ball and then determines its speed based on that information.
+This Arduino (ESP32)-based project measures and displays the speed of a ball on a table soccer game. By using light barriers, it calculates the flight height of the ball and then determines its speed based on that information.
 
 ## Features
 
@@ -39,8 +39,8 @@ This Arduino-based project measures and displays the speed of a ball on a table 
 To build and run this project, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/othmar52/table-soccer-speedometer.git`
-2. Connect the Arduino board to the computer.
-3. Upload the sketch to the Arduino board using the Arduino IDE.
+2. Connect the ESP32 Arduino board to the computer.
+3. Upload the sketch to the board using the Arduino IDE.
 4. Set up the light barriers and ensure they are properly aligned.
 5. Power on the system and observe the speed and flight height measurements on the LCD screen.
 
@@ -99,6 +99,7 @@ https://www.conrad.at/de/p/osram-sfh-309-fototransistor-3-mm-1080-nm-12-sfh-309-
 ```
 
 ### circuit schematics
+![image](https://github.com/othmar52/table-soccer-speedometer/assets/7056051/cf5b72c8-9d16-4b1f-9474-ff619a3d368f)  
 
 
 
