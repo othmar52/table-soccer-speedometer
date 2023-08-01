@@ -99,7 +99,7 @@ https://www.conrad.at/de/p/osram-sfh-309-fototransistor-3-mm-1080-nm-12-sfh-309-
 ```
 
 ### circuit schematics
-![image](https://github.com/othmar52/table-soccer-speedometer/assets/7056051/cf5b72c8-9d16-4b1f-9474-ff619a3d368f)  
+![image](https://github.com/othmar52/table-soccer-speedometer/assets/7056051/a0d9bf40-dd66-452d-9ae6-8fcefb3113f2)
 
 
 
